@@ -1,0 +1,77 @@
+<div class="row" style="margin-bottom:10px">
+  <div class="col-md-4 col-md-offset-4">
+    <form class="form" (submit)="reload()">
+      <div class="form-group">
+        <label>Request id</label>
+        <input class="form-control" type="text" [(ngModel)]="filters.request_id" name="request_id">
+      </div>
+
+      <div class="form-group">
+        <label>Sid</label>
+        <input class="form-control" type="text" [(ngModel)]="filters.sid" name="sid">
+      </div>
+
+      <div class="form-group">
+        <label>IP</label>
+        <input class="form-control" type="text" [(ngModel)]="filters.ip" name="ip">
+      </div>
+      <input type="submit" class="btn btn-primary">
+      <button class="btn btn-danger" (click)="clearFilters()">Clear</button>
+
+    </form>
+  </div>
+</div>
+
+<div class="row" style="margin-bottom:10px">
+  <div class="col-md-3">
+    <h4>Total: {{total}}</h4>
+  </div>
+  <div class="col-md-3">
+    <form class="form-inline">
+      <div class="form-group">
+        <label><h4>Page size: </h4></label>
+        <select class="form-control" [(ngModel)]="page_size" name="page_size" (change)="reload()">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="100">100</option>
+          <option value="1000">1000</option>
+        </select>
+      </div>
+    </form>
+  </div>
+</div>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Host</th>
+      <th>Level</th>
+      <th>Logger name</th>
+      <th>Message</th>
+      <th>Extra</th>
+      <th>Request ID</th>
+      <th>Request IP</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="!loading">
+    <tr *ngFor="let item of results">
+      <td>{{item.host}}</td>
+      <td>{{item.level}}</td>
+      <td>{{item.logger_name}}</td>
+      <td>{{item.message}}</td>
+      <td>
+        <ul>
+          <li *ngFor="let field of keys(item)">
+            <strong>{{field}}</strong>: <div style="float:right">{{item[field]}}</div>
+          </li>
+        </ul>
+      </td>
+      <td>{{item.request_id}}</td>
+      <td>{{item.request_ip}}</td>
+    </tr>
+  </tbody>
+</table>
+<div class="progress progress-striped active" *ngIf="loading">
+  <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+    <span class="sr-only">45% Complete</span>
+  </div>
+</div>
