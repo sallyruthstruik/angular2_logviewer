@@ -12,6 +12,9 @@ class Logs(db.Document):
     logger_name = db.StringField()
     path = db.StringField()
     message = db.StringField()
+    metadata = db.DictField(db_field="meta")
+    msg = db.StringField()
+
 
     meta = {
         'collection': "syslog",

@@ -10,11 +10,12 @@ class LogsSerializer(ModelSerializer):
     class Meta:
         model = Logs
 
-class LogsResource(ModelResource,
-                   DistinctValuesMixin):
+class LogsResource(DistinctValuesMixin,
+                   ModelResource):
 
     serializer_class = LogsSerializer
     queryset = Logs.objects.all()
+    distinct_fields = ["request_id"]
 
     ordering = ("-@timestamp", )
 

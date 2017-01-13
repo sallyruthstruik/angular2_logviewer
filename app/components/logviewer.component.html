@@ -15,6 +15,10 @@
         <label>IP</label>
         <input class="form-control" type="text" [(ngModel)]="filters.ip" name="ip">
       </div>
+      <div class="form-group">
+        <label>level</label>
+        <input class="form-control" type="text" [(ngModel)]="filters.level" name="level">
+      </div>
       <input type="submit" class="btn btn-primary">
       <button class="btn btn-danger" (click)="clearFilters()">Clear</button>
 
@@ -48,16 +52,17 @@
       <th>Logger name</th>
       <th>Message</th>
       <th>Extra</th>
+      <th>Meta</th>
       <th>Request ID</th>
       <th>Request IP</th>
     </tr>
   </thead>
   <tbody *ngIf="!loading">
-    <tr *ngFor="let item of results">
+    <tr *ngFor="let item of results" class="{{getLineClass(item.level)}}">
       <td>{{item.host}}</td>
       <td>{{item.level}}</td>
       <td>{{item.logger_name}}</td>
-      <td>{{item.message}}</td>
+      <td>{{item.message | truncate : 100}}</td>
       <td>
         <ul>
           <li *ngFor="let field of keys(item)">
@@ -65,7 +70,14 @@
           </li>
         </ul>
       </td>
-      <td>{{item.request_id}}</td>
+      <td>
+        <ul>
+          <li *ngFor="let kv of getMeta(item)">
+            <strong>{{kv.key}}</strong>: <div style="float: right">{{kv.value | truncate: 100}}</div>
+          </li>
+        </ul>
+      </td>
+      <td><a (click)="setFilter('request_id', item.request_id)">{{item.request_id}}</a></td>
       <td>{{item.request_ip}}</td>
     </tr>
   </tbody>

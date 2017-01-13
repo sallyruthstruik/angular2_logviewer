@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {LogsService} from "../services/logs.service";
+import {TruncatePipe} from "../pipes/truncate.pipe";
 
 @Component({
   moduleId: module.id,
@@ -49,6 +50,8 @@ export class LogviewerComponent  {
         this.results = resp.results;
         this.total = resp.total;
         this.loading = false;
+
+        console.log(this.results);
       });
   }
 
@@ -61,8 +64,39 @@ export class LogviewerComponent  {
     return Object.keys(item).filter((el)=>this.display_fields.indexOf(el) == -1);
   }
 
+  getMeta(item: any): Array<KeyValue>{
+    let out: Array<KeyValue> = [];
+
+    for(let key in item.metadata){
+      let value = item.metadata[key];
+      out.push({key, value})
+    }
+
+    return out;
+  }
+
+  setFilter(field: string, value: any){
+    this.filters[field] = value;
+    this.reload();
+  }
+
+  getLineClass(logLevel: string){
+    switch(logLevel){
+      case "INFO":
+        return "success";
+      case "WARN":
+        return "warning";
+      case "ERROR":
+        return "danger";
+    }
+  }
+
 }
 
+interface KeyValue{
+  key: string;
+  value: any;
+}
 
 interface Log{
   host: string;
@@ -75,6 +109,7 @@ interface Log{
   request_ip: string;
   sid: string;
   tags: string[];
+  meta: any;
 }
 
 export interface Filters{
