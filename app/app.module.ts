@@ -11,6 +11,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TruncatePipe} from "./pipes/truncate.pipe";
 import {DatetimePickerComponent} from "./components/datetime.component";
 import {AppGlobals} from "./app.globals";
+import {DeepViewComponent} from "./components/deep_view.component";
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import {AppGlobals} from "./app.globals";
     AppComponent, NavbarComponent,
     AboutComponent, LogviewerComponent,
     DatetimePickerComponent,
+    DeepViewComponent,
     TruncatePipe
   ],
   bootstrap:    [ AppComponent ],

@@ -9,7 +9,8 @@ declare var moment: any;
 export class AppGlobals{
 
   startDatetime = new BehaviorSubject<Date>(moment().add(-1, "days").toDate());
-  endDatetime = new BehaviorSubject<Date>(new Date());
+  endDatetime = new BehaviorSubject<Date>(null);
+  useNowAsEnd = true;
 
   setStartDatetime(value: Date) {
     this.startDatetime.next(value);
@@ -17,5 +18,13 @@ export class AppGlobals{
 
   setEndDatetime(value: Date) {
     this.endDatetime.next(value);
+  }
+
+  getEndTime(){
+    return this.endDatetime.getValue()? this.endDatetime.getValue().toISOString(): new Date().toISOString();
+  }
+
+  getStartTime(){
+    return this.startDatetime.getValue().toISOString();
   }
 }

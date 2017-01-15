@@ -30,7 +30,7 @@ class LogsResource(DistinctValuesMixin,
 
     serializer_class = LogsSerializer
     queryset = Logs.objects.all()
-    distinct_fields = ["request_id", "level", "host"]
+    distinct_fields = ["request_id", "level", "host", "logger_name"]
     update_json_filter = update_json_filter
     ordering = ("-@timestamp", )
 

@@ -1,33 +1,34 @@
 <div class="row" style="margin-bottom:10px">
-  <div class="col-md-4 col-md-offset-4">
-    <form class="form" (submit)="reload()">
+  <form class="form" (submit)="reload()">
+    <div class="col-md-4 col-md-offset-1">
       <div class="form-group">
         <label>Request id</label>
         <input class="form-control" type="text" [(ngModel)]="filters.request_id" name="request_id">
       </div>
-
       <div class="form-group">
         <label>Sid</label>
         <input class="form-control" type="text" [(ngModel)]="filters.sid" name="sid">
       </div>
-
       <div class="form-group">
         <label>IP</label>
-        <input class="form-control" type="text" [(ngModel)]="filters.ip" name="ip">
+        <input class="form-control" type="text" [(ngModel)]="filters.request_ip" name="request_ip">
       </div>
-
       <div class="form-group" *ngFor="let field of distinct_filters">
         <label>{{field}}</label>
         <select class="form-control" [(ngModel)]="filters[field]" name="{{field}}">
           <option *ngFor="let option of distinct_filters_data[field]" value="{{option}}">{{option}}</option>
         </select>
       </div>
-
       <input type="submit" class="btn btn-primary">
       <button class="btn btn-danger" (click)="clearFilters()">Clear</button>
-
-    </form>
-  </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Message(regexp)</label>
+        <input class="form-control" type="text" [(ngModel)]="filters.message" name="request_id">
+      </div>
+    </div>
+  </form>
 </div>
 
 <div class="row" style="margin-bottom:10px">
@@ -70,21 +71,14 @@
       <td>{{item.logger_name}}</td>
       <td>{{item.message | truncate : 100}}</td>
       <td>
-        <ul>
-          <li *ngFor="let field of keys(item)">
-            <strong>{{field}}</strong>: <div style="float:right">{{item[field]}}</div>
-          </li>
-        </ul>
+        <deep-view [data]="item"></deep-view>
       </td>
       <td>
-        <ul>
-          <li *ngFor="let kv of getMeta(item)">
-            <strong>{{kv.key}}</strong>: <div style="float: right">{{kv.value | truncate: 100}}</div>
-          </li>
-        </ul>
+        <deep-view [data]="item.metadata"></deep-view>
       </td>
       <td><a (click)="setFilter('request_id', item.request_id)">{{item.request_id}}</a></td>
-      <td>{{item.request_ip}}</td>
+      <td><a (click)="setFilter('request_ip', item.request_ip)">{{item.request_ip}}</a></td>
+
     </tr>
   </tbody>
 </table>

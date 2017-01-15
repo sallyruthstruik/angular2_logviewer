@@ -1,17 +1,17 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
 import {LogsService} from "../services/logs.service";
 import {TruncatePipe} from "../pipes/truncate.pipe";
 import {AppGlobals} from "../app.globals";
 
 declare var moment: any;
-
+declare var $: any;
 @Component({
   moduleId: module.id,
   selector: 'logviewer',
   templateUrl: "logviewer.component.html",
   providers: [LogsService]
 })
-export class LogviewerComponent  {
+export class LogviewerComponent {
 
   page: number;
   page_size: number;
@@ -71,7 +71,13 @@ export class LogviewerComponent  {
           this.distinct_filters_data[field] = resp;
           console.log(this.distinct_filters_data);
         })
-    })
+    });
+
+    this.logsService.getValuesForField("logger_name")
+      .subscribe(resp=>{
+        this.distinct_filters_data.logger_name = resp;
+        $(this.loggerNameSelect.nativeElement).selectpicker();
+      });
   }
 
   reload(){

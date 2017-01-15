@@ -1,0 +1,17 @@
+
+<button type="button" class="btn btn-primary" (click)="showed = !showed" >
+  Show info
+</button>
+<div class="info_popover panel panel-default" *ngIf="showed">
+  <div class="panel-body">
+    <table class="table table-striped table-bordered">
+      <tbody>
+      <tr *ngFor="let key of getKeys()">
+        <td>{{key}}</td>
+        <deep-view *ngIf="isComplex(data[key])" [data]="data[key]"></deep-view>
+        <td *ngIf="!isComplex(data[key])">{{data[key]}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

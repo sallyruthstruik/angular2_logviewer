@@ -17,10 +17,21 @@ export class LogsService{
 
     protected updateFilters(filters: any){
 
+      filters = Object.assign({}, filters);
+
       filters["@timestamp"] = {
-          "$lte": this.appGlobals.endDatetime.getValue().toISOString(),
-          "$gte": this.appGlobals.startDatetime.getValue().toISOString()
+          "$lte": this.appGlobals.getEndTime(),
+          "$gte": this.appGlobals.getStartTime()
       };
+
+      //filter message as regexp
+      if("message" in filters){
+        filters["message"] = {
+          $regex: filters["message"],
+          $options: "i"
+        }
+      }
+
 
       return filters;
     }
