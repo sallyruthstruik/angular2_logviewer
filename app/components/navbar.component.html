@@ -13,6 +13,22 @@
       <ul class="nav navbar-nav">
         <li class="active"><a routerLink="/">Home</a></li>
         <li><a routerLink="/about">About</a></li>
+
+        <li class="dropdown" style="float: right">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Logs interval <b class="caret"></b></a>
+          <ul class="dropdown-menu" >
+            <form class="form" style="width: 300px; margin: 15px">
+              <div class="form-group">
+                <label>Start</label>
+                <datetime (onChange)="startChanged($event)" [default]="getStart()"></datetime>
+              </div>
+              <div class="form-group">
+                <label>End</label>
+                <datetime (onChange)="endChanged($event);"></datetime>
+              </div>
+            </form>
+          </ul>
+        </li>
       </ul>
     </div><!--/.nav-collapse -->
   </div>

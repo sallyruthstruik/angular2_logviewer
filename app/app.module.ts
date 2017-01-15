@@ -9,6 +9,8 @@ import {LogviewerComponent} from "./components/logviewer.component";
 import {Http, HttpModule} from "@angular/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TruncatePipe} from "./pipes/truncate.pipe";
+import {DatetimePickerComponent} from "./components/datetime.component";
+import {AppGlobals} from "./app.globals";
 
 
 @NgModule({
@@ -16,9 +18,10 @@ import {TruncatePipe} from "./pipes/truncate.pipe";
   declarations: [
     AppComponent, NavbarComponent,
     AboutComponent, LogviewerComponent,
-
+    DatetimePickerComponent,
     TruncatePipe
   ],
-  bootstrap:    [ AppComponent ]
+  bootstrap:    [ AppComponent ],
+  providers: [AppGlobals]
 })
 export class AppModule { }

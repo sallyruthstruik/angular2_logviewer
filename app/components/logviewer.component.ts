@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import {LogsService} from "../services/logs.service";
 import {TruncatePipe} from "../pipes/truncate.pipe";
+import {AppGlobals} from "../app.globals";
+
+declare var moment: any;
 
 @Component({
   moduleId: module.id,
@@ -28,7 +31,17 @@ export class LogviewerComponent  {
     "request_ip"
   ];
 
-  constructor(private logsService: LogsService){
+  distinct_filters = [
+    "host",
+    "level"
+  ];
+
+  distinct_filters_data: any;
+
+  constructor(
+      private logsService: LogsService,
+      private appGlobals: AppGlobals
+  ){
 
     this.page = 1;
     this.page_size = 10;
@@ -36,12 +49,34 @@ export class LogviewerComponent  {
     this.results = [];
     this.total = 0;
     this.filters = <Filters>{};
+    this.distinct_filters_data = {};
+
+    this.appGlobals.startDatetime.subscribe((value)=>{
+      this.reload()
+    });
+
+    this.appGlobals.endDatetime.subscribe((value)=>{
+      this.reload();
+    });
 
     this.reload();
+
+    this.prefetchDistinctFields();
+  }
+
+  prefetchDistinctFields(){
+    this.distinct_filters.map((field)=>{
+      this.logsService.getValuesForField(field)
+        .subscribe(resp=>{
+          this.distinct_filters_data[field] = resp;
+          console.log(this.distinct_filters_data);
+        })
+    })
   }
 
   reload(){
     this.loading = true;
+
     this.logsService.getLogs(this.page, this.page_size, this.filters)
       .subscribe(resp=>{
         this.page = resp.page;
@@ -50,8 +85,6 @@ export class LogviewerComponent  {
         this.results = resp.results;
         this.total = resp.total;
         this.loading = false;
-
-        console.log(this.results);
       });
   }
 
@@ -88,7 +121,13 @@ export class LogviewerComponent  {
         return "warning";
       case "ERROR":
         return "danger";
+      case "CRITICAL":
+        return "danger";
     }
+  }
+
+  toLocalDate(value: string){
+    return moment.utc(value).local().format("DD.MM.YYYY HH:mm:SS")
   }
 
 }
@@ -115,3 +154,4 @@ interface Log{
 export interface Filters{
   request_id: string;
 }
+

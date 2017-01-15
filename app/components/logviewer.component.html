@@ -15,10 +15,14 @@
         <label>IP</label>
         <input class="form-control" type="text" [(ngModel)]="filters.ip" name="ip">
       </div>
-      <div class="form-group">
-        <label>level</label>
-        <input class="form-control" type="text" [(ngModel)]="filters.level" name="level">
+
+      <div class="form-group" *ngFor="let field of distinct_filters">
+        <label>{{field}}</label>
+        <select class="form-control" [(ngModel)]="filters[field]" name="{{field}}">
+          <option *ngFor="let option of distinct_filters_data[field]" value="{{option}}">{{option}}</option>
+        </select>
       </div>
+
       <input type="submit" class="btn btn-primary">
       <button class="btn btn-danger" (click)="clearFilters()">Clear</button>
 
@@ -49,6 +53,7 @@
     <tr>
       <th>Host</th>
       <th>Level</th>
+      <th>@timestamp</th>
       <th>Logger name</th>
       <th>Message</th>
       <th>Extra</th>
@@ -61,6 +66,7 @@
     <tr *ngFor="let item of results" class="{{getLineClass(item.level)}}">
       <td>{{item.host}}</td>
       <td>{{item.level}}</td>
+      <td>{{toLocalDate(item["timestamp"])}}</td>
       <td>{{item.logger_name}}</td>
       <td>{{item.message | truncate : 100}}</td>
       <td>
