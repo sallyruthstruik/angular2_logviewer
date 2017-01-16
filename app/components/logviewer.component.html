@@ -27,6 +27,15 @@
         <label>Message(regexp)</label>
         <input class="form-control" type="text" [(ngModel)]="filters.message" name="request_id">
       </div>
+      <div class="form-group">
+        <label>Tags (comma-separated)</label>
+        <input class="form-control" type="text" [(ngModel)]="selected_tags_model" name="selected_tags">
+      </div>
+      <div class="form-group">
+        <label>Logger name</label>
+        <input class="form-control" type="text" [(ngModel)]="filters.logger_name" name="logger_name">
+      </div>
+
     </div>
   </form>
 </div>
@@ -61,6 +70,7 @@
       <th>Meta</th>
       <th>Request ID</th>
       <th>Request IP</th>
+      <th>Tags</th>
     </tr>
   </thead>
   <tbody *ngIf="!loading">
@@ -78,6 +88,12 @@
       </td>
       <td><a (click)="setFilter('request_id', item.request_id)">{{item.request_id}}</a></td>
       <td><a (click)="setFilter('request_ip', item.request_ip)">{{item.request_ip}}</a></td>
+      <td>
+        <span *ngFor="let tag of item.tags" class="label {{getTagClass(tag)}}" style="margin: 5px; zoom: 1.5"
+            (click)="clickedTag(tag)">
+          {{tag}}
+        </span>
+      </td>
 
     </tr>
   </tbody>

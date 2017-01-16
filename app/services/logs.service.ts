@@ -25,12 +25,14 @@ export class LogsService{
       };
 
       //filter message as regexp
-      if("message" in filters){
+      if("message" in filters && filters.message.length > 0){
         filters["message"] = {
           $regex: filters["message"],
           $options: "i"
         }
       }
+
+
 
 
       return filters;
