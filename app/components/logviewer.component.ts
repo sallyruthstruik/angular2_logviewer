@@ -76,7 +76,6 @@ export class LogviewerComponent {
     this.logsService.getValuesForField("logger_name")
       .subscribe(resp=>{
         this.distinct_filters_data.logger_name = resp;
-        $(this.loggerNameSelect.nativeElement).selectpicker();
       });
   }
 
@@ -133,7 +132,7 @@ export class LogviewerComponent {
   }
 
   toLocalDate(value: string){
-    return moment.utc(value).local().format("DD.MM.YYYY HH:mm:SS")
+    return moment.utc(value).local().format("DD.MM.YYYY HH:mm:ss")
   }
 
 }

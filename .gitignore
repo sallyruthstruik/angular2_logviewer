@@ -12,3 +12,4 @@ _temp
 
 flask_validator
 __pycache__
+dist
