@@ -18,7 +18,8 @@ import {Pipe, PipeTransform} from "@angular/core";
 export class TruncatePipe implements PipeTransform{
   transform(value: string, args: number) : string {
     let limit = args;
-
-    return value.length > limit ? value.substring(0, limit) + "...": value;
+    if(value)
+      return value.length > limit ? value.substring(0, limit) + "...": value;
+    return "";
   }
 }

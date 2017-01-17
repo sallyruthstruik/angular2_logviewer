@@ -5,9 +5,8 @@ import {AppGlobals} from "../app.globals";
 declare var moment: any;
 
 @Component({
-  moduleId: module.id,
   selector: 'navbar',
-  templateUrl: "navbar.component.html"
+  templateUrl: "app/components/navbar.component.html"
 })
 export class NavbarComponent  {
 

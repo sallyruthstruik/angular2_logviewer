@@ -13,7 +13,7 @@ os.environ.setdefault("LOGVIEWER_CONFIG", "settings/development.py")
 db = MongoEngine()
 loggerRoot = logging.getLogger("server")
 
-def create_app() -> Flask:
+def create_app():
   app = Flask(__name__)
 
   app.config.from_envvar("LOGVIEWER_CONFIG")

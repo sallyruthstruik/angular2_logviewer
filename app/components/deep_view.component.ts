@@ -5,9 +5,8 @@
 import {Component, Input} from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'deep-view',
-  templateUrl: "deep_view.component.html",
+  templateUrl: "app/components/deep_view.component.html",
 })
 export class DeepViewComponent  {
 

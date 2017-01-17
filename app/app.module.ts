@@ -12,6 +12,8 @@ import {TruncatePipe} from "./pipes/truncate.pipe";
 import {DatetimePickerComponent} from "./components/datetime.component";
 import {AppGlobals} from "./app.globals";
 import {DeepViewComponent} from "./components/deep_view.component";
+import {Constants} from "./constants";
+import {PreViewComponent} from "./components/pre_view.component";
 
 
 @NgModule({
@@ -21,6 +23,7 @@ import {DeepViewComponent} from "./components/deep_view.component";
     AboutComponent, LogviewerComponent,
     DatetimePickerComponent,
     DeepViewComponent,
+    PreViewComponent,
     TruncatePipe
   ],
   bootstrap:    [ AppComponent ],

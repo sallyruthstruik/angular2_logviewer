@@ -4,9 +4,8 @@ declare var $: any;
 declare var moment: any;
 
 @Component({
-  moduleId: module.id,
   selector: 'datetime',
-  templateUrl: "datetime.component.html"
+  templateUrl: "app/components/datetime.component.html"
 })
 export class DatetimePickerComponent implements AfterViewInit {
 

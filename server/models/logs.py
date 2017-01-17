@@ -17,6 +17,9 @@ class Logs(db.Document):
     metadata = db.DictField(db_field="meta")
     msg = db.StringField()
 
+    stack_trace = db.StringField()
+    thread_name = db.StringField()
+
 
     meta = {
         'collection': "syslog",

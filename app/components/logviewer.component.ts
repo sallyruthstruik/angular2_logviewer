@@ -5,10 +5,10 @@ import {AppGlobals} from "../app.globals";
 
 declare var moment: any;
 declare var $: any;
+
 @Component({
-  moduleId: module.id,
   selector: 'logviewer',
-  templateUrl: "logviewer.component.html",
+  templateUrl: "app/components/logviewer.component.html",
   providers: [LogsService]
 })
 export class LogviewerComponent {
@@ -193,5 +193,6 @@ interface Log{
 
 export interface Filters{
   request_id: string;
+  message: any;
 }
 
