@@ -2,10 +2,10 @@ import datetime
 
 from wtforms.ext import dateutil
 
-from flask.ext.validator.resource_mixins.distinct_values import DistinctValuesMixin
-from flask_validator.model_resource import ModelResource
-from flask_validator.router import DefaultRouter
-from flask_validator.serializer.model_serializer import ModelSerializer
+from flask_restframework.resource_mixins.distinct_values import DistinctValuesMixin
+from flask_restframework.model_resource import ModelResource
+from flask_restframework.router import DefaultRouter
+from flask_restframework.serializer.model_serializer import ModelSerializer
 from server.models.logs import Logs
 from server.resources import router
 from dateutil import parser

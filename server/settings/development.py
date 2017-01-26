@@ -1,5 +1,5 @@
-from flask_validator.filter_backends import OrderingBackend, JsonFilterBackend
-from flask_validator.pagination import DefaultPagination
+from flask_restframework.filter_backends import OrderingBackend, JsonFilterBackend
+from flask_restframework.pagination import DefaultPagination
 
 LOGGING = {
     'version': 1,

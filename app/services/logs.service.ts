@@ -50,7 +50,7 @@ export class LogsService{
 
     getValuesForField(field: string) {
       let filters = this.updateFilters(<Filters>{});
-      return this.http.get(`${this.logsUrl}/distinct?field=${field}`)
+      return this.http.get(`${this.logsUrl}/distinct?field=${field}&json_filters=${JSON.stringify(filters)}`)
         .map(item=>item.json());
     }
 }

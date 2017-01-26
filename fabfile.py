@@ -34,7 +34,7 @@ def build(output="build/build.tar.gz"):
     """
     local("mkdir -p build")
     local("gulp dist")
-    local("tar -zcvf {} dist flask_validator server"
+    local("tar -zcvf {} dist server"
           " *.py requirements.txt".format(output))
 
 def first_install():
@@ -78,8 +78,11 @@ def setup(full="false", runner=None):
         with inenv():
             run("pip install -r requirements.txt")
 
-            # if full == "true":
-            #   run("pip install ")
+def install_rf():
+    with cd(env.worked_dir):
+        with inenv():
+            run("pip install -I --no-cache-dir flask_restframework")
+
 
 def inenv():
     return prefix(". {env_path}/bin/activate".format(**env))
