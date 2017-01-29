@@ -14,6 +14,9 @@ import {AppGlobals} from "./app.globals";
 import {DeepViewComponent} from "./components/deep_view.component";
 import {Constants} from "./constants";
 import {PreViewComponent} from "./components/pre_view.component";
+import {PaginationComponent} from "./components/pagination.component";
+import {DistinctInputComponent} from "./components/distinct_input.component";
+import {LastSearchesComponent} from "./components/last_searches.component";
 
 
 @NgModule({
@@ -24,6 +27,9 @@ import {PreViewComponent} from "./components/pre_view.component";
     DatetimePickerComponent,
     DeepViewComponent,
     PreViewComponent,
+    PaginationComponent,
+    DistinctInputComponent,
+    LastSearchesComponent,
     TruncatePipe
   ],
   bootstrap:    [ AppComponent ],

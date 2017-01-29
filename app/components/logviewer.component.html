@@ -13,11 +13,14 @@
         <label>IP</label>
         <input class="form-control" type="text" [(ngModel)]="filters.request_ip" name="request_ip">
       </div>
-      <div class="form-group" *ngFor="let field of distinct_filters">
+      <div class="form-group" *ngFor="let field of getDistinctFieldNames()">
         <label>{{field}}</label>
-        <select class="form-control" [(ngModel)]="filters[field]" name="{{field}}">
-          <option *ngFor="let option of distinct_filters_data[field]" value="{{option}}">{{option}}</option>
-        </select>
+        <distinct_input
+          [data]="distinct_filters[field].data"
+          [onSelect]="onDistinctFilterSelected(field)"
+          [hint] = "distinct_filters[field].hint"
+          [clearEvent] = "clearEvent"
+        ></distinct_input>
       </div>
       <input type="submit" class="btn btn-primary">
       <button class="btn btn-danger" (click)="clearFilters()">Clear</button>
@@ -25,26 +28,21 @@
     <div class="col-md-4">
       <div class="form-group">
         <label>Message(regexp)</label>
-        <input class="form-control" type="text" [(ngModel)]="filters.message" name="request_id">
+        <input class="form-control" type="text" [(ngModel)]="filters.message" name="message">
       </div>
       <div class="form-group">
         <label>Tags (comma-separated)</label>
         <input class="form-control" type="text" [(ngModel)]="selected_tags_model" name="selected_tags">
       </div>
-      <div class="form-group">
-        <label>Logger name</label>
-        <input class="form-control" type="text" [(ngModel)]="filters.logger_name" name="logger_name">
-      </div>
-
     </div>
   </form>
 </div>
 
 <div class="row" style="margin-bottom:10px">
-  <div class="col-md-3">
-    <h4>Total: {{total}}</h4>
+  <div class="col-md-1" style="line-height: 90px; vertical-align: middle">
+    <h4 style="vertical-align: middle; display: inline-block">Total: {{total}}</h4>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3" style="line-height: 90px; vertical-align: middle">
     <form class="form-inline">
       <div class="form-group">
         <label><h4>Page size: </h4></label>
@@ -56,6 +54,9 @@
         </select>
       </div>
     </form>
+  </div>
+  <div class="col-md-3">
+    <pagination [page]="page" [pages]="pages" [onPageSet]="onPageSet"></pagination>
   </div>
 </div>
 <table class="table table-striped table-bordered">
@@ -105,5 +106,10 @@
 <div class="progress progress-striped active" *ngIf="loading">
   <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
     <span class="sr-only">45% Complete</span>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3 col-md-offset-4">
+    <pagination [page]="page" [pages]="pages" [onPageSet]="onPageSet"></pagination>
   </div>
 </div>

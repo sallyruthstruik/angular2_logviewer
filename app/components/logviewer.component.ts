@@ -1,4 +1,4 @@
-import {Component, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
+import {Component, ViewChild, ElementRef, AfterViewInit, EventEmitter} from '@angular/core';
 import {LogsService} from "../services/logs.service";
 import {TruncatePipe} from "../pipes/truncate.pipe";
 import {AppGlobals} from "../app.globals";
@@ -21,6 +21,7 @@ export class LogviewerComponent {
   loading: boolean;
 
   filters: Filters;
+  clearEvent = new EventEmitter<boolean>(false);
 
   display_fields: string[] = [
     "host",
@@ -31,14 +32,15 @@ export class LogviewerComponent {
     "request_ip"
   ];
 
-  distinct_filters = [
-    "host",
-    "level"
-  ];
+  distinct_filters = {
+    host: {},
+    level: {},
+    logger_name: {
+      hint: true
+    }
+  };
 
   selected_tags: string[];
-
-  distinct_filters_data: any;
 
   constructor(
       private logsService: LogsService,
@@ -52,7 +54,6 @@ export class LogviewerComponent {
     this.total = 0;
     this.filters = <Filters>{};
     this.selected_tags = [];
-    this.distinct_filters_data = {};
 
     this.appGlobals.startDatetime.subscribe((value)=>{
       this.reload()
@@ -68,11 +69,10 @@ export class LogviewerComponent {
   }
 
   prefetchDistinctFields(){
-    this.distinct_filters.map((field)=>{
+    Object.keys(this.distinct_filters).map((field)=>{
       this.logsService.getValuesForField(field)
         .subscribe(resp=>{
-          this.distinct_filters_data[field] = resp;
-          console.log(this.distinct_filters_data);
+          this.distinct_filters[field].data = resp;
         })
     });
   }
@@ -99,6 +99,7 @@ export class LogviewerComponent {
   clearFilters(){
     this.filters = <Filters>{};
     this.selected_tags = [];
+    this.clearEvent.emit(true);
     this.reload();
   }
 
@@ -166,10 +167,30 @@ export class LogviewerComponent {
     }else{
       this.selected_tags = [];
     }
-
-
   }
 
+  onPageSet = (page: number)=>{
+    this.page = page;
+    this.reload();
+  };
+
+  /**
+   * Возвращает названия фильтров
+   * @returns {string[]}
+   */
+  getDistinctFieldNames(){
+    return Object.keys(this.distinct_filters);
+  }
+
+  /**
+   * Возвращает колбек который вызывается при выборе значения для distinct_filter
+   * @param field
+   */
+  onDistinctFilterSelected(field: string){
+    return (value: string)=>{
+      this.filters[field] = value;
+    }
+  }
 }
 
 interface KeyValue{
