@@ -8,7 +8,7 @@ declare var moment: any;
 @Injectable()
 export class AppGlobals{
 
-  startDatetime = new BehaviorSubject<Date>(moment().add(-1, "days").toDate());
+  startDatetime = new BehaviorSubject<Date>(moment().add(-1, "hours").toDate());
   endDatetime = new BehaviorSubject<Date>(null);
   useNowAsEnd = true;
 
@@ -26,5 +26,10 @@ export class AppGlobals{
 
   getStartTime(){
     return this.startDatetime.getValue().toISOString();
+  }
+
+  setInterval(value: number, timeunit: string){
+    this.startDatetime.next(moment().add(value, timeunit).toDate());
+    console.log(this.startDatetime.getValue());
   }
 }

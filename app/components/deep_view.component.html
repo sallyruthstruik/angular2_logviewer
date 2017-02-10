@@ -9,7 +9,14 @@
       <tr *ngFor="let key of getKeys()">
         <td>{{key}}</td>
         <deep-view *ngIf="isComplex(data[key])" [data]="data[key]"></deep-view>
-        <td *ngIf="!isComplex(data[key])">{{data[key]}}</td>
+        <td *ngIf="!isComplex(data[key])">
+          <div *ngIf="isSmallText(data[key])">
+            {{data[key]}}
+          </div>
+          <div *ngIf="!isSmallText(data[key])">
+            <pre-view *ngIf="!isSmallText(data[key])" [data]="data[key]"></pre-view>
+          </div>
+        </td>
       </tr>
       </tbody>
     </table>

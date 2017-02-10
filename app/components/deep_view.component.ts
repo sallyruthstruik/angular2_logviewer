@@ -29,4 +29,12 @@ export class DeepViewComponent  {
       return true;
   }
 
+  isSmallText(item: any){
+    if(!item){
+      return true;
+    }
+
+    return item.length < 300;
+  }
+
 }
