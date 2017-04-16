@@ -1,0 +1,13 @@
+<form class="form">
+  <div class="form-group">
+    <label>Колонки для отображения</label>
+    {{dataSource.display_columns}}
+    <select [(ngModel)]="dataSource.display_columns" name="display_columns" class="form-control" multiple style="height: 200px"
+    >
+      <option *ngFor="let item of columns"
+              [attr.selected]="isSelected(item)?true:null"
+
+        >{{item}}</option>
+    </select>
+  </div>
+</form>

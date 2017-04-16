@@ -16,7 +16,7 @@ export class PaginationComponent  {
 
   getPages(): number[]{
     let minPage = Math.max(1, this.page - 3);
-    let maxPage = minPage + 5;
+    let maxPage = Math.min(minPage + 5, this.pages+1);
 
     let out: number[] = [];
     while(minPage < maxPage){

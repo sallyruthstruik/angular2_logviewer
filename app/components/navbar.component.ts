@@ -1,16 +1,20 @@
 
 import {Component} from "@angular/core";
 import {AppGlobals} from "../app.globals";
+import {DataSourceService} from "../services/data_source.service";
+import {DataSource} from "./data_sources.component";
 
 declare var moment: any;
 
 @Component({
   selector: 'navbar',
-  templateUrl: "app/components/navbar.component.html"
+  templateUrl: "app/components/navbar.component.html",
+  providers: [DataSourceService]
 })
 export class NavbarComponent  {
 
   private _endNow: boolean;
+  private dataSources: DataSource[] = [];
 
   get endNow(): boolean{
     return this._endNow;
@@ -26,8 +30,16 @@ export class NavbarComponent  {
     }
   }
 
-  constructor(private _appGlobals: AppGlobals){
+  constructor(
+    private _appGlobals: AppGlobals,
+    private dataSourceService: DataSourceService
+  ){
     this.endNow = true;
+
+    this.dataSourceService.getDataSources().subscribe(
+      (resp)=>{this.dataSources = resp.results},
+      (err)=>{console.log(err)}
+    )
   }
 
   startChanged(value: Date){

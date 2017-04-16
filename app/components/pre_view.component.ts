@@ -9,5 +9,4 @@ export class PreViewComponent {
   @Input() data: string;
   showed: boolean;
 
-
 }

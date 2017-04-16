@@ -2,6 +2,8 @@ import {Component, ViewChild, ElementRef, AfterViewInit, EventEmitter} from '@an
 import {LogsService} from "../services/logs.service";
 import {TruncatePipe} from "../pipes/truncate.pipe";
 import {AppGlobals} from "../app.globals";
+import {ActivatedRoute} from "@angular/router";
+import {DataSourceService} from "../services/data_source.service";
 
 declare var moment: any;
 declare var $: any;
@@ -9,7 +11,7 @@ declare var $: any;
 @Component({
   selector: 'logviewer',
   templateUrl: "app/components/logviewer.component.html",
-  providers: [LogsService]
+  providers: [LogsService, DataSourceService]
 })
 export class LogviewerComponent {
 
@@ -19,6 +21,7 @@ export class LogviewerComponent {
   total: number;
   results: Log[];
   loading: boolean;
+  dataSourceId: string;
 
   filters: Filters;
   clearEvent = new EventEmitter<boolean>(false);
@@ -44,7 +47,9 @@ export class LogviewerComponent {
 
   constructor(
       private logsService: LogsService,
-      private appGlobals: AppGlobals
+      private dataSourceService: DataSourceService,
+      private appGlobals: AppGlobals,
+      private route: ActivatedRoute
   ){
 
     this.page = 1;
@@ -55,6 +60,14 @@ export class LogviewerComponent {
     this.filters = <Filters>{};
     this.selected_tags = [];
 
+    this.route.params.subscribe(params=>{
+      this.dataSourceId = params["id"];
+      this.reload();
+      this.prefetchDistinctFields();
+
+    });
+
+
     this.appGlobals.startDatetime.subscribe((value)=>{
       this.reload()
     });
@@ -62,15 +75,11 @@ export class LogviewerComponent {
     this.appGlobals.endDatetime.subscribe((value)=>{
       this.reload();
     });
-
-    this.reload();
-
-    this.prefetchDistinctFields();
   }
 
   prefetchDistinctFields(){
     Object.keys(this.distinct_filters).map((field)=>{
-      this.logsService.getValuesForField(field)
+      this.logsService.getValuesForField(this.dataSourceId, field)
         .subscribe(resp=>{
           this.distinct_filters[field].data = resp;
         })
@@ -85,7 +94,7 @@ export class LogviewerComponent {
         "$all": this.selected_tags
       };
 
-    this.logsService.getLogs(this.page, this.page_size, this.filters)
+    this.logsService.getLogs(this.dataSourceId, this.page, this.page_size, this.filters)
       .subscribe(resp=>{
         this.page = resp.page;
         this.page_size = resp.page_size;
@@ -124,7 +133,7 @@ export class LogviewerComponent {
   }
 
   getLineClass(logLevel: string){
-    switch(logLevel){
+    switch(logLevel.toUpperCase()){
       case "INFO":
         return "success";
       case "WARN":

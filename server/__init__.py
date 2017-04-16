@@ -2,16 +2,26 @@ import logging
 from logging.config import dictConfig
 
 import time
+
+from bson.objectid import ObjectId
 from flask.app import Flask
 import os
 
 from flask.ext.mongoengine import MongoEngine
 from flask.globals import request
+from flask.json import JSONEncoder
 
 os.environ.setdefault("LOGVIEWER_CONFIG", "settings/development.py")
 
 db = MongoEngine()
 loggerRoot = logging.getLogger("server")
+
+class MyJsonEncoder(JSONEncoder):
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+
+        return super(MyJsonEncoder, self).default(o)
 
 def create_app():
   app = Flask(__name__)
@@ -19,6 +29,8 @@ def create_app():
   app.config.from_envvar("LOGVIEWER_CONFIG")
 
   db.init_app(app)
+
+  app.json_encoder = MyJsonEncoder
 
   from server.resources import api
   app.register_blueprint(api)

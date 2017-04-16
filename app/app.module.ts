@@ -17,6 +17,8 @@ import {PreViewComponent} from "./components/pre_view.component";
 import {PaginationComponent} from "./components/pagination.component";
 import {DistinctInputComponent} from "./components/distinct_input.component";
 import {LastSearchesComponent} from "./components/last_searches.component";
+import {ConfigureDataSourcesComponent} from "./components/data_sources.component";
+import {ColumnsSetupComponent} from "./components/columns_setup.component";
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import {LastSearchesComponent} from "./components/last_searches.component";
     PaginationComponent,
     DistinctInputComponent,
     LastSearchesComponent,
-    TruncatePipe
+    TruncatePipe,
+    ConfigureDataSourcesComponent,
+    ColumnsSetupComponent
   ],
   bootstrap:    [ AppComponent ],
   providers: [AppGlobals]

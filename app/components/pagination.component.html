@@ -1,7 +1,7 @@
 <ul class="pagination">
-  <li><a href="#" (click)="prevPage()">&laquo;</a></li>
+  <li><a (click)="prevPage()">&laquo;</a></li>
   <li *ngFor="let p of getPages()" [ngClass]="{'active': (p == page)}">
-    <a href="#" (click)="goToPage(p)">{{p}}</a>
+    <a (click)="goToPage(p)">{{p}}</a>
   </li>
-  <li><a href="#" (click)="nextPage()">&raquo;</a></li>
+  <li><a (click)="nextPage()">&raquo;</a></li>
 </ul>
