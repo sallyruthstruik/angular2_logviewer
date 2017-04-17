@@ -9,6 +9,7 @@ import os
 
 from flask.ext.mongoengine import MongoEngine
 from flask.globals import request
+from flask.helpers import send_from_directory
 from flask.json import JSONEncoder
 
 os.environ.setdefault("LOGVIEWER_CONFIG", "settings/development.py")
@@ -37,6 +38,13 @@ def create_app():
 
   app.before_request(before_request)
   app.after_request(after_request)
+
+  #serve static
+  @app.route("/<path:filename>")
+  @app.route("/")
+  def index(filename="index.html"):
+    root_dir = os.path.dirname(__file__)
+    return send_from_directory(os.path.join(root_dir, "../dist"), filename)
 
   dictConfig(app.config["LOGGING"])
 

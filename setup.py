@@ -1,17 +1,23 @@
+import os
 from distutils.core import setup
+
+from pip.req.req_file import parse_requirements
 
 setup(
     name='mongo_logviewer',
     version="0.0.1",
-    url='https://github.com/sallyruthstruik/logviewer',
+    url='https://github.com/sallyruthstruik/mongo_logviewer',
     license='BSD',
-    description='Web APIs for Flask, made easy, inspired from Django DRF.',
-    long_description=read_md('README.md'),
+    description='Web dashboard for viewing logs in MongoDB',
+    long_description="",
     author='Stas Kaledin',
     author_email='staskaledin@gmail.com',
-    packages=get_packages('flask_restframework'),
-    package_data=get_package_data('flask_restframework'),
-    install_requires=[],
+    packages=[
+        dirpath
+        for dirpath, dirnames, filenames in os.walk("server")
+        if os.path.exists(os.path.join(dirpath, '__init__.py'))
+    ],
+    install_requires=[str(ir.req) for ir in parse_requirements("requirements.txt", session='hack')],
     zip_safe=False,
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -21,7 +27,6 @@ setup(
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Topic :: Internet :: WWW/HTTP',

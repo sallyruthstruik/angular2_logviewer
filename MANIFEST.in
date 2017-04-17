@@ -1,0 +1,9 @@
+include dist/app
+include dist/assets
+include dist/*.html
+include dist/*.js
+include requirements.txt
+recursive-include dist/app *
+recursive-include dist/assets *
+
+

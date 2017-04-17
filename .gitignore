@@ -9,8 +9,12 @@ e2e/**/*.js
 e2e/**/*.js.map
 _test-output
 _temp
+.vagrant
+MANIFEST
+
 
 __pycache__
 dist
 build
 *.pyc
+*.log
