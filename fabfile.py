@@ -77,6 +77,7 @@ def setup(full="false", runner=None):
     with cd(env.worked_dir):
         with inenv():
             run("pip install -r requirements.txt")
+            run("pip install --no-cache-dir -U flask-restframework")
 
 def install_rf():
     with cd(env.worked_dir):
