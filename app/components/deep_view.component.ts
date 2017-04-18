@@ -24,17 +24,22 @@ export class DeepViewComponent  {
     return [];
   }
 
-  isComplex(item: any){
-    if(item && typeof item == "object")
-      return true;
-  }
-
-  isSmallText(item: any){
-    if(!item){
-      return true;
+  /**
+   * Returns type of item. Can be small, pre, array, object
+   * @param item
+   */
+  getType(item: any){
+    if(Array.isArray(item)){
+      return "array"
+    }
+    if(item && typeof item == "object"){
+      return "object"
     }
 
-    return item.length < 300;
+    if(!item || item.length < 300)
+      return "small";
+
+    return "pre"
   }
 
 }

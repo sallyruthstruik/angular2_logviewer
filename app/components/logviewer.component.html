@@ -81,7 +81,7 @@
       <td>{{item.level}}</td>
       <td>{{toLocalDate(item["timestamp"])}}</td>
       <td>{{item.logger_name}}</td>
-      <td>{{item.message | truncate : 100}}</td>
+      <td><pre-view [data]="item.message" [event]="'mouse'"></pre-view></td>
       <td>
         <deep-view [data]="item"></deep-view>
       </td>

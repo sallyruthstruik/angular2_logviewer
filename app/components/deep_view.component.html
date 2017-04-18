@@ -8,13 +8,18 @@
       <tbody>
       <tr *ngFor="let key of getKeys()">
         <td>{{key}}</td>
-        <deep-view *ngIf="isComplex(data[key])" [data]="data[key]"></deep-view>
-        <td *ngIf="!isComplex(data[key])">
-          <div *ngIf="isSmallText(data[key])">
+        <deep-view *ngIf="getType(data[key]) == 'object'" [data]="data[key]"></deep-view>
+        <td *ngIf="!getType(data[key]) != 'object'">
+          <div *ngIf="getType(data[key]) == 'small'">
             {{data[key]}}
           </div>
-          <div *ngIf="!isSmallText(data[key])">
-            <pre-view *ngIf="!isSmallText(data[key])" [data]="data[key]"></pre-view>
+          <div *ngIf="getType(data[key]) == 'array'">
+            <span *ngFor="let tag of data[key]" class="label label-primary" style="margin: 5px; zoom: 1.5">
+              {{tag}}
+            </span>
+          </div>
+          <div *ngIf="getType(data[key]) == 'pre'">
+            <pre-view [data]="data[key]"></pre-view>
           </div>
         </td>
       </tr>

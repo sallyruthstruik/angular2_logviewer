@@ -1,8 +1,8 @@
-<a (click)="showed = !showed">
+<a (click)="onClick()" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
   {{data | truncate:100}}
 </a>
 <div class="info_popover panel panel-default" *ngIf="showed">
   <div class="panel-body">
-    <pre>{{data}}</pre>
+    <pre style="max-width: 600px; white-space: pre-wrap">{{data}}</pre>
   </div>
 </div>
