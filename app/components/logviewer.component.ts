@@ -45,6 +45,18 @@ export class LogviewerComponent {
 
   selected_tags: string[];
 
+  get serializedFilters(){
+    return JSON.stringify(this.filters, null, 2);
+  }
+
+  set serializedFilters(v){
+    try{
+      this.filters = JSON.parse(v)
+    }catch (e){
+      console.log(`Can't parse filters ${v}`, e);
+    }
+  }
+
   constructor(
       private logsService: LogsService,
       private dataSourceService: DataSourceService,
@@ -146,7 +158,8 @@ export class LogviewerComponent {
   }
 
   toLocalDate(value: string){
-    return moment.utc(value).local().format("DD.MM.YYYY HH:mm:ss")
+    return moment.utc(value).local().format("DD.MM.YYYY HH:mm:ss");
+    // return value;
   }
 
   getTagClass(tag: string){
