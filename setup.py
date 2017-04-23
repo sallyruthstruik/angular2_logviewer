@@ -1,11 +1,11 @@
 import os
-from distutils.core import setup
+from setuptools import setup
 
-from pip.req.req_file import parse_requirements
+from pip.req import parse_requirements
 
 setup(
     name='mongo_logviewer',
-    version="0.0.1",
+    version='0.21',
     url='https://github.com/sallyruthstruik/mongo_logviewer',
     license='BSD',
     description='Web dashboard for viewing logs in MongoDB',
@@ -14,10 +14,14 @@ setup(
     author_email='staskaledin@gmail.com',
     packages=[
         dirpath
-        for dirpath, dirnames, filenames in os.walk("server")
+        for dirpath, dirnames, filenames in os.walk("mongo_logviewer")
         if os.path.exists(os.path.join(dirpath, '__init__.py'))
     ],
-    install_requires=[str(ir.req) for ir in parse_requirements("requirements.txt", session='hack')],
+    data_files=[[dirpath, [dirpath + "/" + f for f in fnames]] for dirpath, _, fnames in os.walk("dist")],
+    scripts=["mongo_logviewer/logviewer.py"],
+    install_requires=[
+        str(ir.req) for ir in parse_requirements("requirements.txt", session='hack')
+    ],
     zip_safe=False,
     classifiers=[
         'Development Status :: 3 - Alpha',

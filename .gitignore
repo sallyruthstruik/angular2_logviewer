@@ -12,6 +12,9 @@ _temp
 .vagrant
 MANIFEST
 
+mongo_logviewer.egg-info/
+mongo_logviewer.tar.gz
+
 
 __pycache__
 dist
