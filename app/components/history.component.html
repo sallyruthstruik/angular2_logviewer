@@ -1,0 +1,51 @@
+
+<div *ngIf="showModal" class="modal" style="display: block; top: 10%">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="showModal=false">&times;</button>
+        <h4 class="modal-title">Сохранить запрос</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form">
+          <div class="form-group">
+            <label for="name">name</label>
+            <input class="form-control" id="name" name="name" [(ngModel)]="saveFilter.name" required/>
+          </div>
+          <div class="form-group">
+            <label for="filter">filter</label>
+            <textarea class="form-control" id="filter" name="filter" [(ngModel)]="saveFilter.filter" required></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="showModal=false;">Закрыть</button>
+        <button type="button" class="btn btn-primary" (click)="onSaveFilter()">Сохранить изменения</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<ul class="nav nav-tabs">
+  <li [ngClass]="{active: tab === 'history'}" (click)="tab = 'history'"><a>История</a></li>
+  <li [ngClass]="{active: tab === 'saved'}" (click)="tab = 'saved'"><a>Сохраненные фильтры</a></li>
+</ul>
+<table class="table table-striped table-bordered" *ngIf="tab == 'history'">
+  <tbody>
+    <tr *ngFor="let item of history|slice:0:10">
+      <td><a (click)="onFilterClicked(item)">{{item}}</a></td>
+      <td><button class="btn btn-primary" (click)="showModal = true; saveFilter.filter = item">Сохранить</button></td>
+    </tr>
+  </tbody>
+</table>
+<table class="table table-striped table-bordered" *ngIf="tab == 'saved'">
+  <tbody>
+    <tr *ngFor="let item of favorites">
+      <td>{{item.name}}</td>
+      <td><a>{{item.filter}}</a></td>
+      <td>
+        <button class="btn btn-danger" (click)="deleteFavorite(item)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -25,6 +25,7 @@ export class LogviewerComponent {
 
   filters: Filters;
   clearEvent = new EventEmitter<boolean>(false);
+  filter_history: string[] = [];
 
   display_fields: string[] = [
     "host",
@@ -76,7 +77,11 @@ export class LogviewerComponent {
       this.dataSourceId = params["id"];
       this.reload();
       this.prefetchDistinctFields();
-
+      this.dataSourceService.getDataSource(this.dataSourceId)
+        .subscribe(
+          (resp)=>{this.filter_history = resp.query_history; console.log("FH", this.filter_history)},
+          (err)=>{console.log(err)}
+        )
     });
 
 
@@ -98,13 +103,27 @@ export class LogviewerComponent {
     });
   }
 
-  reload(){
+  reload(saveFilter=true){
     this.loading = true;
 
     if(this.selected_tags.length > 0)
       this.filters["tags"] = {
         "$all": this.selected_tags
       };
+
+    if(saveFilter) {
+      this.dataSourceService.saveFilter(this.dataSourceId, this.filters)
+        .subscribe(
+          (resp) => {
+            if (resp.status == 200) {
+              this.filter_history.unshift(JSON.stringify(this.filters));
+            }
+          },
+          (err) => {
+            console.log(err)
+          }
+        );
+    }
 
     this.logsService.getLogs(this.dataSourceId, this.page, this.page_size, this.filters)
       .subscribe(resp=>{
@@ -212,6 +231,14 @@ export class LogviewerComponent {
     return (value: string)=>{
       this.filters[field] = value;
     }
+  }
+
+  /**
+   * Вызывается при клике на элемент истории
+   */
+  onHistoryItemClicked(item: string){
+    this.filters = JSON.parse(item);
+    this.reload(false);
   }
 }
 

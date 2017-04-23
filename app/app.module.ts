@@ -19,6 +19,7 @@ import {DistinctInputComponent} from "./components/distinct_input.component";
 import {LastSearchesComponent} from "./components/last_searches.component";
 import {ConfigureDataSourcesComponent} from "./components/data_sources.component";
 import {ColumnsSetupComponent} from "./components/columns_setup.component";
+import {HistoryComponent} from "./components/history.component";
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {ColumnsSetupComponent} from "./components/columns_setup.component";
     LastSearchesComponent,
     TruncatePipe,
     ConfigureDataSourcesComponent,
-    ColumnsSetupComponent
+    ColumnsSetupComponent,
+    HistoryComponent
   ],
   bootstrap:    [ AppComponent ],
   providers: [AppGlobals]

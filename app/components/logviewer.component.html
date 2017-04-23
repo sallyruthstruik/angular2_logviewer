@@ -1,7 +1,7 @@
 <form class="form" (submit)="reload()">
   <div class="row" style="margin-bottom:10px">
 
-    <div class="col-md-4 col-md-offset-1">
+    <div class="col-md-4">
       <div class="form-group">
         <label>Request id</label>
         <input class="form-control" type="text" [(ngModel)]="filters.request_id" name="request_id">
@@ -39,6 +39,10 @@
         <label for="seralizedFilters">Custom filter</label>
         <textarea class="form-control" id="seralizedFilters" rows=10 name="custom_filter" [(ngModel)]="serializedFilters"></textarea>
       </div>
+    </div>
+    <div class="col-md-4">
+      <h3>History</h3>
+      <history_component [dataSourceId]="dataSourceId" [history]="filter_history" [onFilterClicked]="onHistoryItemClicked.bind(this)"></history_component>
     </div>
   </div>
 </form>

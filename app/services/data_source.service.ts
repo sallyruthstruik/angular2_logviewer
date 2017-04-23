@@ -7,6 +7,7 @@ import {Http, Headers} from "@angular/http";
 import {Constants} from "../constants";
 import {DataSource} from "../components/data_sources.component";
 import {Filters} from "../components/logviewer.component";
+import {SaveFilter} from "../components/history.component";
 
 @Injectable()
 export class DataSourceService{
@@ -50,7 +51,7 @@ export class DataSourceService{
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
     return this.http.post(
-      `${this.url}/saveFilter`,
+      `${this.url}/addhistory/${dataSourceId}`,
       JSON.stringify({filters}),
       {headers}
     )
@@ -60,6 +61,38 @@ export class DataSourceService{
     return this.http.get(
       `${this.url}/getColumns/${dataSourceId}`
     ).map(resp=>resp.json())
+  }
+
+  getDataSource(dataSourceId: string) {
+    return this.http.get(
+      `${this.url}/${dataSourceId}`
+    ).map(resp=>resp.json())
+  }
+
+  saveFavoriteFilter(dataSourceId: string, saveFilter: SaveFilter) {
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    return this.http.post(
+      `${this.url}/saveFavoriteFilter/${dataSourceId}`,
+      JSON.stringify(saveFilter),
+      {headers}
+    )
+  }
+
+  getFavorites(dataSourceId: string) {
+    return this.http.get(
+      `${this.url}/getFavorites/${dataSourceId}`
+    ).map(resp=>resp.json())
+  }
+
+  deleteFavorite(dataSourceId: string, name: string){
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    return this.http.post(
+      `${this.url}/deleteFavorite/${dataSourceId}`,
+      JSON.stringify({name}),
+      {headers}
+    )
   }
 }
 

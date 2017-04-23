@@ -4,6 +4,7 @@ import "rxjs/add/operator/map";
 import {Filters} from "../components/logviewer.component";
 import {AppGlobals} from "../app.globals";
 import {Constants} from "../constants";
+import {DataSourceService} from "./data_source.service";
 
 @Injectable()
 export class LogsService{
@@ -11,7 +12,8 @@ export class LogsService{
 
     constructor(
         private http: Http,
-        private appGlobals: AppGlobals
+        private appGlobals: AppGlobals,
+        private dataSourceService: DataSourceService
     ){
       this.url = `${Constants.HOST}/api/logs`
     }
@@ -44,6 +46,7 @@ export class LogsService{
 
     getLogs(dataSourceId: string, page: number, page_size: number, filters: Filters){
       filters = this.updateFilters(filters);
+
       console.log(`Get logs with parameters dataSourceId=${dataSourceId}, page=${page}, page_size=${page_size}`, filters);
       return this.http.get(`${Constants.HOST}/api/get_logs/${dataSourceId}?page=${page}&page_size=${page_size}&json_filters=${JSON.stringify(filters)}`).map(item=>item.json());
     }
