@@ -20,10 +20,13 @@ import {LastSearchesComponent} from "./components/last_searches.component";
 import {ConfigureDataSourcesComponent} from "./components/data_sources.component";
 import {ColumnsSetupComponent} from "./components/columns_setup.component";
 import {HistoryComponent} from "./components/history.component";
+import {ChartsComponent} from "./components/charts.component";
+import {ChartsModule} from "ng2-charts";
+import {JsonTextarea} from "./components/jsontextarea.component";
 
 
 @NgModule({
-  imports:      [ BrowserModule, routing, HttpModule, FormsModule ],
+  imports:      [ BrowserModule, routing, HttpModule, FormsModule, ChartsModule ],
   declarations: [
     AppComponent, NavbarComponent,
     AboutComponent, LogviewerComponent,
@@ -36,7 +39,9 @@ import {HistoryComponent} from "./components/history.component";
     TruncatePipe,
     ConfigureDataSourcesComponent,
     ColumnsSetupComponent,
-    HistoryComponent
+    HistoryComponent,
+    ChartsComponent,
+    JsonTextarea
   ],
   bootstrap:    [ AppComponent ],
   providers: [AppGlobals]

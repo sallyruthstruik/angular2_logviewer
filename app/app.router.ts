@@ -6,6 +6,7 @@ import {AboutComponent} from "./components/about.component";
 import {ModuleWithProviders} from "@angular/core";
 import {LogviewerComponent} from "./components/logviewer.component";
 import {ConfigureDataSourcesComponent} from "./components/data_sources.component";
+import {ChartsComponent} from "./components/charts.component";
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: "view_logs/:id",
     component: LogviewerComponent
+  },
+  {
+    path: "charts/:id",
+    component: ChartsComponent
   }
 ];
 

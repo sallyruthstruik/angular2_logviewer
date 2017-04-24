@@ -1,0 +1,24 @@
+<h3>Charts for dataSource {{dataSource.name}}</h3>
+<div style="display: block;">
+  <div class="row">
+    <div class="col-md-3">
+      <form class="form">
+        <div class="form-group">
+          <label>Aggregation pipeline</label>
+          <jsontextarea name="aggregationPipeline"
+                        [(ngModel)]="aggregationPipeline" ngDefaultControl
+                        [initial]="[]"
+          ></jsontextarea>
+          {{aggregationPipeline}}
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <canvas baseChart width="10" height="10"
+          style="max-height: 600px; max-width: 600px"
+          [datasets]="line_data"
+          [chartType]='"line"'
+  ></canvas>
+
+</div>

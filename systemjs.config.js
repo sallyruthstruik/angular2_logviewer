@@ -29,8 +29,8 @@
       'core-js-shim':'npm:core-js/client/shim.min.js',
       'zone':'npm:zone.js/dist/zone.js',
       'reflect':'npm:reflect-metadata/Reflect.js',
-      'underscore': 'npm:underscore/underscore-min.js'
-
+      'underscore': 'npm:underscore/underscore-min.js',
+      "ng2-charts": "node_modules/ng2-charts"
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -40,6 +40,10 @@
       },
       rxjs: {
         defaultExtension: 'js'
+      },
+      "ng2-charts": {
+        main: "ng2-charts.js",
+        defaultExtension: "js"
       }
     }
   });

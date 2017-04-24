@@ -15,7 +15,7 @@ def main(args=sys.argv):
 
     host, port = n.bind.split(":")
 
-    app.run(n.host, int(n.port))
+    app.run(host, int(port))
 
 if __name__ == "__main__":
     main()

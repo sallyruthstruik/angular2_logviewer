@@ -34,7 +34,7 @@ def build(output="build/build.tar.gz"):
     """
     local("mkdir -p build")
     local("gulp dist")
-    local("tar -zcvf {} dist server"
+    local("tar -zcvf {} dist mongo_logviewer"
           " *.py requirements.txt".format(output))
 
 def first_install():
