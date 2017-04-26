@@ -5,7 +5,7 @@ from pip.req import parse_requirements
 
 setup(
     name='mongo_logviewer',
-    version='0.21',
+    version='0.22',
     url='https://github.com/sallyruthstruik/mongo_logviewer',
     license='BSD',
     description='Web dashboard for viewing logs in MongoDB',

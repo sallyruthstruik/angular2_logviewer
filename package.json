@@ -25,6 +25,7 @@
     "@angular/platform-browser": "~2.4.0",
     "@angular/platform-browser-dynamic": "~2.4.0",
     "@angular/router": "~3.4.0",
+    "@types/chart.js": "^2.4.2",
     "angular-in-memory-web-api": "~0.2.4",
     "chart.js": "^2.5.0",
     "core-js": "^2.4.1",
@@ -33,13 +34,14 @@
     "ng2-charts": "^1.5.0",
     "ng2-datetime": "^1.2.2",
     "ng2-datetime-picker": "^0.12.2",
+    "reflect-metadata": "^0.1.10",
     "rxjs": "5.0.1",
     "systemjs": "0.19.40",
     "underscore": "^1.8.3",
     "zone.js": "^0.7.4"
   },
   "devDependencies": {
-    "@types/jasmine": "^2.5.36",
+    "@types/jasmine": "2.5.36",
     "@types/node": "^6.0.46",
     "canonical-path": "0.0.2",
     "concurrently": "^3.1.0",
