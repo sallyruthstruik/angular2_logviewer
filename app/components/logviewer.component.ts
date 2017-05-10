@@ -29,8 +29,8 @@ export class LogviewerComponent {
 
   display_fields: string[] = [
     "host",
-    "level",
-    "logger_name",
+    "levelname",
+    "name",
     "message",
     "request_id",
     "request_ip"
@@ -38,8 +38,8 @@ export class LogviewerComponent {
 
   distinct_filters = {
     host: {},
-    level: {},
-    logger_name: {
+    levelname: {},
+    name: {
       hint: true
     }
   };
@@ -250,8 +250,8 @@ interface KeyValue{
 interface Log{
   host: string;
   id: string;
-  level: string;
-  logger_name: string;
+  levelname: string;
+  name: string;
   message: string;
   path: string;
   request_id: string;

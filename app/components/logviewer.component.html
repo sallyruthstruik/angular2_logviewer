@@ -85,17 +85,17 @@
     </tr>
   </thead>
   <tbody *ngIf="!loading">
-    <tr *ngFor="let item of results" class="{{getLineClass(item.level)}}">
+    <tr *ngFor="let item of results" class="{{getLineClass(item.levelname)}}">
       <td>{{item.host}}</td>
-      <td>{{item.level}}</td>
+      <td>{{item.levelname}}</td>
       <td>{{toLocalDate(item["@timestamp"])}}</td>
-      <td>{{item.logger_name}}</td>
+      <td>{{item.name}}</td>
       <td><pre-view [data]="item.message" [event]="'mouse'"></pre-view></td>
       <td>
         <deep-view [data]="item"></deep-view>
       </td>
       <td>
-        <deep-view [data]="item.metadata"></deep-view>
+        <deep-view [data]="item.meta"></deep-view>
       </td>
       <td>
         <pre-view [data]="item.stack_trace"></pre-view>

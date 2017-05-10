@@ -1,7 +1,16 @@
+import logging
+from logging.handlers import DatagramHandler
+from threading import Thread
 
-from mongo_logviewer import create_app
-from mongo_logviewer.models.logs import Logs
+from digitalpine_utils.dp_logging import UDPHandler
 
-create_app()
+logging.basicConfig()
 
-print(Logs.objects.all())
+logging.getLogger("root").addHandler(UDPHandler(["test"], "test"))
+
+try:
+    1/0
+except Exception as e:
+    logging.getLogger("root").exception(
+      "Some message %s, %s", 1, Thread(), extra={"meta": {"Olala": "blablabla", "key": Thread()}}
+    )

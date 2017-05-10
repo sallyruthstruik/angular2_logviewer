@@ -27,8 +27,9 @@ LOGGING = {
 }
 
 MONGODB_SETTINGS = {
-  "host": "192.168.176.18",
-  "db": "logstash"
+  # "host": "db",
+  "host": "127.0.0.1",
+  "db": "python_logs"
 }
 
 FLASK_REST = {

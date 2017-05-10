@@ -12,6 +12,7 @@ from flask.globals import request
 from flask.helpers import send_from_directory
 from flask.json import JSONEncoder
 
+
 root_dir = os.path.dirname(__file__)
 
 os.environ.setdefault("LOGVIEWER_CONFIG", os.path.join(root_dir, "settings/development.py"))
@@ -48,6 +49,11 @@ def create_app():
     return send_from_directory(os.path.join(root_dir, "../dist"), filename)
 
   dictConfig(app.config["LOGGING"])
+
+  from mongo_logviewer.resources.logs_gate import UDPLogsGate
+
+  #Start UDP listening
+  UDPLogsGate(app).start()
 
   return app
 

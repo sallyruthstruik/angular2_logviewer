@@ -21,11 +21,11 @@ class DataSourceResource(ModelResource):
 
     @detail_route(methods=["GET"])
     def getColumns(self, request, pk):
-        col = DataSources.objects.get(id=pk).collection_name
+        ds = DataSources.objects.get(id=pk)
 
         out = set()
 
-        data = get_connection()[current_app.config["MONGODB_SETTINGS"]["db"]][col].find().limit(10)
+        data = ds.get_ds_collection().find().limit(10)
 
         for item in data:
             out.update(item)

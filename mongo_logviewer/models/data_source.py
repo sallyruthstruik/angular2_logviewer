@@ -1,4 +1,8 @@
+from flask import current_app
 from mongoengine import fields as db
+from mongoengine.connection import get_connection
+from pymongo.collection import Collection
+
 
 class FavoriteFilter(db.EmbeddedDocument):
     name = db.StringField(unique=True)
@@ -13,9 +17,9 @@ class DataSources(db.Document):
 
     display_columns = db.ListField(db.StringField(), default=[
       "host",
-      "level",
+      "levelname",
       "@timestamp",
-      "logger_name",
+      "name",
       "message",
       "extra",
       "meta",
@@ -23,3 +27,14 @@ class DataSources(db.Document):
       "request_ip",
       "tags"
     ])
+
+    def get_ds_collection(self, app=None):
+        """
+        :rtype: pymongo.collection.Collection
+        """
+
+        app = app or current_app
+
+        out = get_connection()[app.config["MONGODB_SETTINGS"]["db"]][self.collection_name]
+        assert isinstance(out, Collection)
+        return out
